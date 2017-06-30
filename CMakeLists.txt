@@ -4,13 +4,26 @@
 #
 # This code is licensed under the MIT License (MIT).
 
-cmake_minimum_required( VERSION 2.8.12 )
+cmake_minimum_required( VERSION 3.6 )
 
-project( any_lite )
+project( optional_lite )
 
-enable_testing()
+option(OptionalLite_Tests "Enable testing for optional_lite" OFF)
 
-add_subdirectory( test )
+add_library(OptionalLite INTERFACE)
+add_library(OptionalLite::OptionalLite ALIAS OptionalLite)
+
+target_include_directories(
+  OptionalLite
+  INTERFACE
+  include/nonstd/
+  )
+
+if(OptionalLite_Tests)
+  enable_testing()
+  add_subdirectory( test )
+endif()
+
 #add_subdirectory( example )
 
 # end of file
